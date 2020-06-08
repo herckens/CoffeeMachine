@@ -1,20 +1,17 @@
 using System;
-using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using System.Net.Http;
 using Microsoft.Azure.Devices;
-using System.Text;
 
 namespace CoffeeAPI
 {
     public static class CoffeeApi
     {
+        private const string DeviceName = "idefixRaspi1";
         static ServiceClient serviceClient;
 
         [FunctionName("CoffeeOn")]
@@ -29,12 +26,12 @@ namespace CoffeeAPI
 
             serviceClient = ServiceClient.CreateFromConnectionString(connectionString);
             log.LogInformation("Connected to IoT Hub.");
-            var commandMessage = new Message(Encoding.ASCII.GetBytes("Cloud to device message."));
-            var timeout = TimeSpan.FromSeconds(10);
-            await serviceClient.SendAsync("idefixRaspi1", commandMessage, timeout);
-            log.LogInformation("Message is sent.");
 
-            string responseMessage = "The request has successfully been sent to IoT Hub.";
+            var methodInvocation = new CloudToDeviceMethod("coffeeon") { ResponseTimeout = TimeSpan.FromSeconds(30) };
+            methodInvocation.SetPayloadJson("10");
+            var response = await serviceClient.InvokeDeviceMethodAsync(DeviceName, methodInvocation);
+
+            string responseMessage = "The request has successfully been sent to IoT Hub. Response: " + response.Status;
             return new OkObjectResult(responseMessage);
         }
 
@@ -50,12 +47,12 @@ namespace CoffeeAPI
 
             serviceClient = ServiceClient.CreateFromConnectionString(connectionString);
             log.LogInformation("Connected to IoT Hub.");
-            var commandMessage = new Message(Encoding.ASCII.GetBytes("Cloud to device message."));
-            var timeout = TimeSpan.FromSeconds(10);
-            await serviceClient.SendAsync("idefixRaspi1", commandMessage, timeout);
-            log.LogInformation("Message is sent.");
 
-            string responseMessage = "The request has successfully been sent to IoT Hub.";
+            var methodInvocation = new CloudToDeviceMethod("coffeeoff") { ResponseTimeout = TimeSpan.FromSeconds(30) };
+            methodInvocation.SetPayloadJson("10");
+            var response = await serviceClient.InvokeDeviceMethodAsync(DeviceName, methodInvocation);
+
+            string responseMessage = "The request has successfully been sent to IoT Hub. Response: " + response.Status;
             return new OkObjectResult(responseMessage);
         }
 
