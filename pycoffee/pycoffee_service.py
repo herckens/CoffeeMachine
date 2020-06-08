@@ -3,6 +3,7 @@ import asyncio
 import threading
 import requests
 from azure.iot.device.aio import IoTHubDeviceClient
+from azure.iot.device import MethodResponse
 
 print("Starting")
 
@@ -17,15 +18,41 @@ async def main():
     async def message_listener(device_client):
         while True:
             print("Wait for next message...")
-            message = await device_client.receive_message()  # blocking call
+            message = await device_client.receive_message()
             print("the data in the message received was ")
             print(message.data)
             print("")
             response = requests.get(url = "http://myStrom-Coffee/toggle")
 
-    task = asyncio.create_task(message_listener(device_client))
-    print("Task created. Now awaiting completion...")
-    await task
+    async def coffeeon_listener(device_client):
+        while True:
+            print("Wait for next coffeeon method call")
+            method_request = await device_client.receive_method_request("coffeeon")
+            response = requests.get(url = "http://myStrom-Coffee/relay?state=1")
+            payload = {"result": response.ok}
+            status = 200
+            method_response = MethodResponse.create_from_method_request(method_request, status, payload)
+            await device_client.send_method_response(method_response)
+            print("Executed coffeeon")
+
+    async def coffeeoff_listener(device_client):
+        while True:
+            print("Wait for next coffeeoff method call")
+            method_request = await device_client.receive_method_request("coffeeoff")
+            response = requests.get(url = "http://myStrom-Coffee/relay?state=0")
+            payload = {"result": response.ok}
+            status = 200
+            method_response = MethodResponse.create_from_method_request(method_request, status, payload)
+            await device_client.send_method_response(method_response)
+            print("Executed coffeeoff")
+
+    listeners = asyncio.gather(
+        coffeeon_listener(device_client),
+        coffeeoff_listener(device_client),
+        message_listener(device_client)
+    )
+
+    await listeners
     print("The task completed.")
 
     # Finally, disconnect
