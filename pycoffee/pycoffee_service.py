@@ -22,10 +22,10 @@ async def main():
             print("the data in the message received was ")
             print(message.data)
             print("")
-            if (message.data == "coffeeon"):
+            if message.data == b'coffeeon':
                 response = requests.get(url = "http://myStrom-Coffee/relay?state=1")
                 print("Executed coffeeon")
-            elif (message.data == "coffeeoff"):
+            elif message.data == b'coffeeoff':
                 response = requests.get(url = "http://myStrom-Coffee/relay?state=0")
                 print("Executed coffeeoff")
             else:
