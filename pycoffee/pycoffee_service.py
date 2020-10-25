@@ -22,7 +22,14 @@ async def main():
             print("the data in the message received was ")
             print(message.data)
             print("")
-            response = requests.get(url = "http://myStrom-Coffee/toggle")
+            if (message.data == "coffeeon"):
+                response = requests.get(url = "http://myStrom-Coffee/relay?state=1")
+                print("Executed coffeeon")
+            elif (message.data == "coffeeoff"):
+                response = requests.get(url = "http://myStrom-Coffee/relay?state=0")
+                print("Executed coffeeoff")
+            else:
+                print("Command not recognized.")
 
     async def coffeeon_listener(device_client):
         while True:
