@@ -2,6 +2,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal"
+        },
+        {
             "type": "aws-sam",
             "request": "direct-invoke",
             "name": "CoffeeApiCsAws:HelloWorldFunction (dotnetcore3.1)",
