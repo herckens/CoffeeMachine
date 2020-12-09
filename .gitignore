@@ -3,7 +3,7 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
-pycoffee/connection_string.txt
+pycoffee/connection_string*
 
 # User-specific files
 *.rsuser
