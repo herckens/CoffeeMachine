@@ -1,9 +1,3 @@
 {
-    "azureFunctions.deploySubpath": "CoffeeAPIJava/target/azure-functions/CoffeeAPI",
-    "azureFunctions.projectLanguage": "Java",
-    "azureFunctions.projectRuntime": "~3",
-    "debug.internalConsoleOptions": "neverOpen",
-    "azureFunctions.preDeployTask": "package",
-    "azureFunctions.projectSubpath": "CoffeeAPIJava",
-    "java.configuration.updateBuildConfiguration": "automatic"
+    "debug.internalConsoleOptions": "neverOpen"
 }
