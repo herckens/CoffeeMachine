@@ -11,7 +11,7 @@ namespace CoffeeAPI
 {
     public static class CoffeeApi
     {
-        private const string DeviceName = "idefixRaspi1";
+        private const string DeviceName = "idefixRaspi";
         static ServiceClient serviceClient;
 
         [FunctionName("CoffeeOn")]
