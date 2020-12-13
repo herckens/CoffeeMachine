@@ -9,20 +9,6 @@
             "console": "integratedTerminal"
         },
         {
-            "type": "aws-sam",
-            "request": "direct-invoke",
-            "name": "CoffeeApiCsAws:HelloWorldFunction (dotnetcore3.1)",
-            "invokeTarget": {
-                "target": "template",
-                "templatePath": "CoffeeApiCsAws/CoffeeApiCsAws/template.yaml",
-                "logicalId": "HelloWorldFunction"
-            },
-            "lambda": {
-                "payload": {},
-                "environmentVariables": {}
-            }
-        },
-        {
             "name": "Attach to Java Functions",
             "type": "java",
             "request": "attach",
