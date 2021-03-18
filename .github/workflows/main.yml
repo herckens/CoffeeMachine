@@ -10,7 +10,7 @@ on:
 env:
   AZURE_FUNCTIONAPP_NAME: hhacoffeeapics
   AZURE_FUNCTIONAPP_PACKAGE_PATH: './CoffeeAPICs'
-  DOTNET_VERSION: '3.1.13'
+  DOTNET_VERSION: '3.1.407'
 
 jobs:
   build-and-deploy:
