@@ -15,6 +15,12 @@
             "hostName": "127.0.0.1",
             "port": 5005,
             "preLaunchTask": "func: host start"
+        },
+        {
+            "name": "Attach to .NET Functions",
+            "type": "coreclr",
+            "request": "attach",
+            "processId": "${command:azureFunctions.pickProcess}"
         }
     ]
 }
