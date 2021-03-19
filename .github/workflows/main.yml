@@ -1,10 +1,8 @@
-name: Build and Deploy CS Azure Function
+name: Build and Deploy to Staging
 
 on:
   push:
     branches: [ master ]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
   
 env:
@@ -23,21 +21,17 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
       
-      - name: 'Resolve Project Dependencies Using Dotnet'
+      - name: 'Resolve Project Dependencies and Build'
         shell: bash
         run: |
           pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
           dotnet build --configuration Release --output ./output
           popd
       
-      - name: Azure Functions Action
+      - name: Deploy Azure Function
         uses: Azure/functions-action@v1.3.1
         with:
-          # Name of the Azure Function App
           app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
-          # Path to package or folder. *.zip or a folder to deploy
           package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
-          # Function app slot to be deploy to
           slot-name: 'staging' # optional
-          # Publish profile (*.publishsettings) file contents with web deploy secrets
           publish-profile: ${{ secrets.AZURE_FUNCTION_PUBLISH_PROFILE_STAGING }}
