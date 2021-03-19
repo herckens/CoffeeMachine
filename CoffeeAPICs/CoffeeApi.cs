@@ -34,7 +34,7 @@ namespace Hha.CoffeeMachine
             methodInvocation.SetPayloadJson("10");
             var response = await serviceClient.InvokeDeviceMethodAsync(DeviceName, methodInvocation);
 
-            string responseMessage = $"The 'CoffeeOn' request is successfully been sent to IoT Hub. Response: {response.Status}";
+            string responseMessage = $"The 'CoffeeOn' request has successfully been sent to IoT Hub. Response: {response.Status}";
             return new OkObjectResult(responseMessage);
         }
 
@@ -55,7 +55,7 @@ namespace Hha.CoffeeMachine
             methodInvocation.SetPayloadJson("10");
             var response = await serviceClient.InvokeDeviceMethodAsync(DeviceName, methodInvocation);
 
-            string responseMessage = $"The 'CoffeeOff' request is successfully been sent to IoT Hub. Response: {response.Status}";
+            string responseMessage = $"The 'CoffeeOff' request has successfully been sent to IoT Hub. Response: {response.Status}";
             return new OkObjectResult(responseMessage);
         }
 
