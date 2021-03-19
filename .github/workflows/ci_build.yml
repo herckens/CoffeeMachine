@@ -20,7 +20,7 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
       
-      - name: 'Resolve Project Dependencies Using Dotnet'
+      - name: 'Resolve Project Dependencies and Build'  
         shell: bash
         run: |
           pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
