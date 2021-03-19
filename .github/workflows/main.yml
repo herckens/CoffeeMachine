@@ -40,4 +40,4 @@ jobs:
           # Function app slot to be deploy to
           slot-name: staging # optional
           # Publish profile (*.publishsettings) file contents with web deploy secrets
-          publish-profile: ${{ secrets.AZURE_FUNCTION_PUBLISH_PROFILE }}
+          publish-profile: ${{ secrets.AZURE_FUNCTION_PUBLISH_PROFILE_STAGING }}
